@@ -5,25 +5,21 @@ module.exports = (express, Data) => {
 
     router.post('', async (req, res, next) => {
         try {
-            let doc = await Data.create(req)
+            let doc = await Data.create(req.body)
             res.json(doc)
         } catch(e) {
-            res.json(e)
+            next(e)
         }
     })
 
     router.get('', async (req, res, next) => {
         try {
-            let doc = await Data.create(req)
+            let doc = await Data.get()
             res.json(doc)
         } catch(e) {
-            res.json(e)
+            next(e)
         }
     })
-
-    // POST localhost:3000/data
-    // GET localhost:3000/data
-    // PUT localhost:3000/data
 
     return router
 }

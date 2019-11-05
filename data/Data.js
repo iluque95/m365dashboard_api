@@ -6,9 +6,7 @@ module.exports = (DataModel) => {
                 try {
                     // validacion: if (!params.km) throw new Error('El km es obligatorio')
                     params.creationDate = this.formatDate(params.creationDate)
-
                     let model = new DataModel(params)
-                    console.log('holi')
                     let response = await model.save()
                     resolve(response)
                 } catch(e) {
