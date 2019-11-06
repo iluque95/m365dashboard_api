@@ -2,18 +2,27 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const errorHandler = require('./errorHandler')
+const uniqueValidator = require('mongoose-unique-validator');
 
-mongoose.connect('mongodb://localhost:27017/db', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/db', { useNewUrlParser: true, useUnifiedTopology: true, createIndexes: true })
 mongoose.Promise = Promise
 let app = express()
 
-let DataModel = require('./data/DataModel')(mongoose)
-let Data = require('./data/Data')(DataModel)
-let dataRoutes = require('./routes/data.routes')(express, Data)
+let scooterModel = require('./data/scooterModel')(mongoose, uniqueValidator)
+let scooter = require('./data/scooter')(scooterModel)
+let scooterRoutes = require('./routes/scooter.routes')(express, scooter)
+
+let temperatureModel = require('./temperature/temperatureModel')(mongoose, uniqueValidator, uniqueValidator)
+let temperature = require('./temperature/temperature')(temperatureModel)
+let temperatureRoutes = require('./routes/temperature.routes')(express, temperature)
+
+let fuelRoutes = require('./routes/fuel.routes')(express, scooter)
 
 app.use(bodyParser.json())
 
-app.use('/data', dataRoutes)
+app.use('/scooter', scooterRoutes)
+app.use('/temperature', temperatureRoutes)
+app.use('/fuelSave', fuelRoutes)
 
 app.use(errorHandler)
 
