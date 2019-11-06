@@ -1,4 +1,4 @@
-module.exports = (scooterModel) => {
+module.exports = (scooterModel, request, fuel_api) => {
     class Scooter {
 
         async create(params) {
@@ -78,6 +78,27 @@ module.exports = (scooterModel) => {
                 }
             })
         }
+
+        async fuelSaved(id) {
+            return new Promise(async (resolve, reject) => {
+                request.get(fuel_api, async (error, response, body) => {
+
+                    try {
+
+                        let doc = await this.get_by_id(id)
+
+                        let ret = JSON.parse(body).features[0].attributes.precio_gasolina_95 * doc.total_km
+
+                        resolve({ success: true, message: { money_saved: ret + ' €' } })
+
+                    } catch (e) {
+                        reject(e)
+                    }
+
+                })
+            })
+        }
+
     }
 
     return new Scooter()
