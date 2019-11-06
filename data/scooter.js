@@ -53,7 +53,7 @@ module.exports = (scooterModel) => {
                     if (id.length == 24)
                         list = await scooterModel.findByIdAndUpdate(id, params)
                     else
-                        list = await scooterModel.find({ serial: id }, params)
+                        list = await scooterModel.findOneAndUpdate({ serial: id }, params)
 
                     resolve(list)
                 } catch (e) {

@@ -54,7 +54,7 @@ module.exports = (temperatureModel) => {
                     if (id.length == 24)
                         list = await temperatureModel.findByIdAndUpdate(id, params)
                     else
-                        list = await temperatureModel.find({ serial: id }, params)
+                        list = await temperatureModel.findOneAndUpdate({ serial: id }, params)
 
                     resolve(doc)
                 } catch (e) {
