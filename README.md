@@ -2,7 +2,7 @@
 
 Extensión no oficial de la aplicación m356 Dashboard.
 
-Read in [*English version*] (blob/master/README.en.md)
+Read in [*English version*] (README.en.md)
 
 <a href="https://play.google.com/store/apps/details?id=adriandp.m365dashboard">![Get it on Play Store](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)</a>
 
